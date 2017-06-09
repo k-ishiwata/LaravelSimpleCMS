@@ -1,0 +1,19 @@
+.mb10 {
+	margin-bottom: 10px;
+}
+
+.text-link {
+	display: inline;
+	border: none;
+	background: transparent;
+	padding: 0;
+	color: #3097D1;
+	outline: none;
+}
+.text-link:hover {
+	color: #216a94;
+	text-decoration: underline;
+}
+.delete-from {
+	display: inline;
+}

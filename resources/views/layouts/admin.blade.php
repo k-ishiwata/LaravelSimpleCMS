@@ -30,7 +30,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Front
+                        管理画面
                     </a>
                 </div>
 
@@ -55,7 +55,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
+                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             ログアウト
                                         </a>

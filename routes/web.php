@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('posts', 'PostsController', ['only' => [
+    'index', 'show'
+]]);
+
+// 管理画面
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
+{
+    Route::resource('posts', 'Admin\PostsController');
+});
