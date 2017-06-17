@@ -24,7 +24,9 @@ Route::resource('posts', 'PostsController', ['only' => [
 ]]);
 
 // 管理画面
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
+//Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
+Route::group(['prefix' => 'admin'], function()
 {
     Route::resource('posts', 'Admin\PostsController');
+    Route::resource('categories', 'Admin\CategoriesController');
 });

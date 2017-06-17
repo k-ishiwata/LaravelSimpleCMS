@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Post;
 use App\Category;
+use App\Post;
 
-class PostsController extends Controller
+class CategoriesController extends Controller
 {
-    // バリデーションのルール
     public $validateRules = [
         'title' => 'required',
-        'body' => 'max:500'
+        'slug' => 'required'
     ];
-
 
     /**
      * Display a listing of the resource.
@@ -23,9 +21,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-//        $posts = Post::orderBy('id', 'desc')->paginate(20);
-        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(20);
-        return view('admin.posts.index', compact('posts'));
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -35,8 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('title', 'id')->toArray();
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.categories.create');
     }
 
     /**
@@ -49,9 +45,9 @@ class PostsController extends Controller
     {
         $this->validate($request, $this->validateRules);
 
-        Post::create($request->all());
-        \Session::flash('flash_message', '記事を作成しました。');
-        return redirect('admin/posts');
+        Category::create($request->all());
+        \Session::flash('flash_message', 'カテゴリーを作成しました。');
+        return redirect('admin/categories');
     }
 
     /**
@@ -62,9 +58,16 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-//        $post = Post::find($id);
-        $post = Post::findOrFail($id);
-        return view('admin.posts.show', compact('post'));
+        $category = Category::findOrFail($id);
+
+        $posts = Post::where('category_id', $id)->paginate(20);
+
+
+
+
+//        $posts = $category->posts->paginate(20);
+
+        return view('admin.categories.show', compact('category', 'posts'));
     }
 
     /**
@@ -75,20 +78,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-
-        $categories = Category::pluck('title', 'id')->toArray();
-
-//        array_unshift($categories, "選択してください。");
-
-//        dd($categories);
-//
-//        $hoge = ['aaa', 'bbb', 'ccc'];
-//
-//        dd($hoge);
-
-
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -102,11 +93,11 @@ class PostsController extends Controller
     {
         $this->validate($request, $this->validateRules);
 
-        $post = Post::findOrFail($id);
-        $post->update($request->all());
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
 
-        \Session::flash('flash_message', '記事を更新しました。');
-        return redirect('admin/posts');
+        \Session::flash('flash_message', 'カテゴリーを更新しました。');
+        return redirect('admin/categories');
     }
 
     /**
@@ -117,11 +108,11 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete($id);
+        $category = Category::findOrFail($id);
+        $category->delete($id);
 
-        \Session::flash('flash_message', '記事を削除しました。');
+        \Session::flash('flash_message', 'カテゴリーを削除しました。');
 
-        return redirect('admin/posts');
+        return redirect('admin/categories');
     }
 }

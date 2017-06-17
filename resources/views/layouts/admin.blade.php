@@ -37,7 +37,8 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="/admin/posts">記事</a></li>
+                        <li><a href="/admin/categories">カテゴリー</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
