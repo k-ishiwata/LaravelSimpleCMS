@@ -23,6 +23,7 @@
                             <th>ID</th>
                             <th>タイトル</th>
                             <th>カテゴリー</th>
+                            <th>タグ</th>
                             <th>作成日</th>
                             <th>編集</th>
                         </tr>
@@ -33,7 +34,14 @@
                                 <td>{{ $post->title }}</td>
                                 <td>
                                     @isset($post->category)
-                                        {{ $post->category->title }}
+                                        {!! link_to_action('Admin\CategoriesController@show', $post->category->title, [$post->category->id]) !!}
+                                    @endisset
+                                </td>
+                                <td>
+                                    @isset($post->tags)
+                                        @foreach($post->tags as $tag)
+                                        {!! link_to_action('Admin\TagsController@show', $tag->title, [$tag->id]) !!}
+                                        @endforeach
                                     @endisset
                                 </td>
                                 <td>{{ $post->created_at->format('Y年m月d日') }}</td>

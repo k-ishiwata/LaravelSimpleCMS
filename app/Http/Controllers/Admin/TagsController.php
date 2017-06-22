@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
-use App\Post;
+use App\Tag;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     public $validateRules = [
         'title' => 'required',
@@ -21,8 +20,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.tags.index', compact('tags'));
     }
 
     /**
@@ -32,7 +31,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.tags.create');
     }
 
     /**
@@ -45,9 +44,9 @@ class CategoriesController extends Controller
     {
         $this->validate($request, $this->validateRules);
 
-        Category::create($request->all());
-        \Session::flash('flash_message', 'カテゴリーを作成しました。');
-        return redirect('admin/categories');
+        Tag::create($request->all());
+        \Session::flash('flash_message', 'タグを作成しました。');
+        return redirect('admin/tags');
     }
 
     /**
@@ -58,10 +57,19 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        $posts = $category->posts()->paginate(20);
+        $tag = Tag::findOrFail($id);
 
-        return view('admin.categories.show', compact('category', 'posts'));
+//        dd($tag->posts());
+//
+//        $posts = $tag->posts();
+
+//        $posts = Post::where('tag_id', $id)->paginate(20);
+
+
+        $posts = $tag->posts()->paginate(20);
+
+
+        return view('admin.tags.show', compact('tag', 'posts'));
     }
 
     /**
@@ -72,8 +80,8 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return view('admin.categories.edit', compact('category'));
+        $tag = Tag::findOrFail($id);
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -87,11 +95,11 @@ class CategoriesController extends Controller
     {
         $this->validate($request, $this->validateRules);
 
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $tag = Tag::findOrFail($id);
+        $tag->update($request->all());
 
-        \Session::flash('flash_message', 'カテゴリーを更新しました。');
-        return redirect('admin/categories');
+        \Session::flash('flash_message', 'タグを更新しました。');
+        return redirect('admin/tags');
     }
 
     /**
@@ -102,11 +110,11 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete($id);
+        $tag = Tag::findOrFail($id);
+        $tag->delete($id);
 
-        \Session::flash('flash_message', 'カテゴリーを削除しました。');
+        \Session::flash('flash_message', 'タグを削除しました。');
 
-        return redirect('admin/categories');
+        return redirect('admin/tags');
     }
 }

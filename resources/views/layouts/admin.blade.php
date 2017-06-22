@@ -39,6 +39,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/admin/posts">記事</a></li>
                         <li><a href="/admin/categories">カテゴリー</a></li>
+                        <li><a href="/admin/tags">タグ</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

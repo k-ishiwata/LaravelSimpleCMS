@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostsController extends Controller
 {
@@ -24,7 +25,7 @@ class PostsController extends Controller
     public function index()
     {
 //        $posts = Post::orderBy('id', 'desc')->paginate(20);
-        $posts = Post::with('category')->orderBy('id', 'desc')->paginate(20);
+        $posts = Post::with('category', 'tags')->orderBy('id', 'desc')->paginate(20);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -36,7 +37,9 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::pluck('title', 'id')->toArray();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::pluck('title', 'id')->toArray();
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -49,7 +52,13 @@ class PostsController extends Controller
     {
         $this->validate($request, $this->validateRules);
 
-        Post::create($request->all());
+        $tags = $request->input('tag_id', []);
+        unset($request['tag_id']);
+
+        $post = Post::create($request->all());
+        // tagsの保存
+        $post->tags()->attach($tags);
+
         \Session::flash('flash_message', '記事を作成しました。');
         return redirect('admin/posts');
     }
@@ -78,17 +87,9 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         $categories = Category::pluck('title', 'id')->toArray();
+        $tags = Tag::pluck('title', 'id')->toArray();
 
-//        array_unshift($categories, "選択してください。");
-
-//        dd($categories);
-//
-//        $hoge = ['aaa', 'bbb', 'ccc'];
-//
-//        dd($hoge);
-
-
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -101,9 +102,14 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->validateRules);
-
         $post = Post::findOrFail($id);
+
+        // tagもupdate
+        $post->tags()->sync($request->input('tag_id', []));
+
+        unset($request['tag_id']);
         $post->update($request->all());
+
 
         \Session::flash('flash_message', '記事を更新しました。');
         return redirect('admin/posts');
@@ -118,6 +124,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $post->tags()->detach();
         $post->delete($id);
 
         \Session::flash('flash_message', '記事を削除しました。');

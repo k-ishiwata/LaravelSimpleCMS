@@ -11,7 +11,19 @@
                     <div>
                         <h1>{{$post->title}}</h1>
                         <p>{{$post->body}}</p>
-                        <p>{{ $post->category->title }}</p>
+
+                        @if($post->category)
+                        <p>カテゴリー：{{ $post->category->title }}</p>
+                        @endif
+
+                        @if($post->tags)
+                        <p>タグ：</p>
+                        <ul>
+                        @foreach($post->tags as $tag)
+                            <li>{{ $tag->title }}</li>
+                        @endforeach
+                        </ul>
+                        @endif
                     </div>
                 </div>
             </div>

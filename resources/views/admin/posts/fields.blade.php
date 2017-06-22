@@ -15,12 +15,12 @@
 <div class="form-group">
     {!! Form::label('categories', 'カテゴリー:', ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {{ Form::select('category_id',
+        {{-- Form::select('category_id',
             $categories,
             isset($post->category->id) ? $post->category->id : null )
-        }}
+        --}}
 
-        <!--
+
         <div>
             @foreach ($categories as $key => $category)
                 <label class="radio-inline">
@@ -29,22 +29,27 @@
                 </label>
             @endforeach
         </div>
-        -->
+    </div>
+</div>
 
-        {{--
-        <div class="checkbox">
-            @foreach ($categories as $category)
+
+<div class="form-group">
+    {!! Form::label('tags', 'タグ:', ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        <div>
+            @foreach ($tags as $key => $tag)
+                @php
+                $isCheck = false;
+                if (isset($post->tags) && $post->tags->contains($key)) {
+                    $isCheck = true;
+                }
+                @endphp
                 <label class="checkbox-inline">
-                    {!! Form::checkbox(
-                        'category_id',
-                        $category->id,
-                        false
-                        ) !!}
-                    {{ $category->title }}
+                    {!! Form::checkbox( 'tag_id[]', $key, $isCheck) !!}
+                    {{ $tag }}
                 </label>
             @endforeach
         </div>
-        --}}
     </div>
 </div>
 
