@@ -23,6 +23,13 @@ Route::resource('posts', 'PostsController', ['only' => [
     'index', 'show'
 ]]);
 
+
+//Route::resource('contact', 'ContactsController', ['only' => ['index', 'store']]);
+//Route::get('contacts/confirm', 'ContactsController@confirm');
+Route::get('contact', 'ContactsController@index');
+Route::post('contact/confirm', 'ContactsController@confirm');
+Route::post('contact/send', 'ContactsController@send');
+
 // 管理画面
 //Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
 Route::group(['prefix' => 'admin'], function()

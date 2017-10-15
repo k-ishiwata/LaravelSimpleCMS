@@ -44,6 +44,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // csrf例外だった場合はログイン画面に飛ばす
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException){
+            \Session::flash('flash_message', 'エラーが発生しました。');
+            return redirect()->back();
+        }
+
         return parent::render($request, $exception);
     }
 
