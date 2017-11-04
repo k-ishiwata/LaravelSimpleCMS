@@ -29,7 +29,7 @@ class ContactRequest extends FormRequest
             'name' => 'required|max:10',
             'email' => 'required|email',
             'gender' => 'required|in:男,女',
-            'body' => 'max:1000'
+            'body' => 'required|max:1000'
         ];
     }
 

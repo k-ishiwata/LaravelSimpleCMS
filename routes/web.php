@@ -24,11 +24,9 @@ Route::resource('posts', 'PostsController', ['only' => [
 ]]);
 
 
-//Route::resource('contact', 'ContactsController', ['only' => ['index', 'store']]);
-//Route::get('contacts/confirm', 'ContactsController@confirm');
 Route::get('contact', 'ContactsController@index');
 Route::post('contact/confirm', 'ContactsController@confirm');
-Route::post('contact/send', 'ContactsController@send');
+Route::post('contact/complete', 'ContactsController@complete');
 
 // 管理画面
 //Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()

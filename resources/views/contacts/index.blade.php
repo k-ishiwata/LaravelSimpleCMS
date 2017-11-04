@@ -9,11 +9,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">お問い合わせ</div>
                 <div class="panel-body">
-                    @if (Session::has('flash_message'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ Session::get('flash_message') }}
-                        </div>
-                    @endif
 
                     {{-- エラーの表示 --}}
                     @if ($errors->any())
@@ -62,7 +57,7 @@
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         {!! Form::label('email', 'メールアドレス:', ['class' => 'col-sm-2 control-label']) !!}
                         <div class="col-sm-10">
-                            {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                            {!! Form::email('email', null, ['class' => 'form-control']) !!}
                             @if ($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>

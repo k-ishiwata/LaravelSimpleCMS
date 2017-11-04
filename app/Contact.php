@@ -19,11 +19,13 @@ class Contact extends Model
         'body'
     ];
 
-//    public function types() {
-//        return [
-//            'product' => '商品について',
-//            'service' => 'サービスについて',
-//            'etc' => 'その他'
-//        ];
-//    }
+    static $types = [
+        '商品について',
+        'サービスについて',
+        'その他'
+    ];
+
+    static $genders = [
+        '男', '女'
+    ];
 }

@@ -34,7 +34,7 @@
                         </tr>
                     </table>
 
-                    {!! Form::open(['url' => 'contact/send',
+                    {!! Form::open(['url' => 'contact/complete',
                                     'class' => 'form-horizontal',
                                     'id' => 'post-input']) !!}
 
@@ -43,13 +43,10 @@
                             @if(is_array($value))
                                 @foreach($value as $subValue)
                                     <input name="{{ $key }}[]" type="hidden" value="{{ $subValue }}">
-                                    {{--{!! Form::hidden($key.'[]', $subValue) !!}--}}
                                 @endforeach
                             @else
                                 {!! Form::hidden($key, $value) !!}
                             @endif
-{{--                            <input name="{{ $key }}" type="hidden" value="{{ $value }}">--}}
-                            {{--{{ $key }} - {{ $value }}<br>--}}
 
                         @endif
                     @endforeach
