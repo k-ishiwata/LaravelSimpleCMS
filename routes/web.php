@@ -35,4 +35,7 @@ Route::group(['prefix' => 'admin'], function()
     Route::resource('posts', 'Admin\PostsController');
     Route::resource('categories', 'Admin\CategoriesController');
     Route::resource('tags', 'Admin\TagsController');
+    Route::resource('contacts', 'Admin\ContactsController', ['only' => [
+        'index', 'show', 'destroy'
+    ]]);
 });
