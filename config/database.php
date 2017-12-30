@@ -78,6 +78,15 @@ return [
             'prefix' => '',
         ],
 
+        'testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+            'options' => [
+                PDO::ATTR_PERSISTENT => true,
+            ],
+        ],
+
     ],
 
     /*

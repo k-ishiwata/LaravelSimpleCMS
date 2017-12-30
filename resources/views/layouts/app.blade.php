@@ -37,7 +37,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="/">ホーム</a></li>
+                        <li><a href="/posts">お知らせ</a></li>
+                        <li><a href="/prices">価格表</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

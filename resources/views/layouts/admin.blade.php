@@ -40,6 +40,7 @@
                         <li><a href="/admin/posts">記事</a></li>
                         <li><a href="/admin/categories">カテゴリー</a></li>
                         <li><a href="/admin/tags">タグ</a></li>
+                        <li><a href="/admin/prices">価格表</a></li>
                         <li><a href="/admin/contacts">お問い合わせ</a></li>
                     </ul>
 
